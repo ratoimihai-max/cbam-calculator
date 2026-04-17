@@ -22,7 +22,7 @@ Inlocuiti `USER/REPO` cu repository-ul creat in GitHub.
 
 Aveti trei variante practice:
 
-1. Deploy in cloud
+1. Deploy in cloud pe Render
 
 Recomandat cand aplicatia trebuie folosita de colegi din afara biroului. Codul sta pe GitHub, iar aplicatia ruleaza pe un serviciu cloud. Comanda de pornire este:
 
@@ -31,6 +31,31 @@ python web_app.py
 ```
 
 Aplicatia citeste automat variabila `PORT`, daca platforma cloud o seteaza.
+
+### Render
+
+Aplicatia include `render.yaml`, deci Render poate citi automat configuratia:
+
+- service type: Web Service
+- runtime: Python
+- plan: Free
+- build command: `pip install -r requirements.txt`
+- start command: `python web_app.py`
+- health check: `/`
+
+Pasi:
+
+1. Urcati codul in GitHub.
+2. In Render: New > Blueprint sau New > Web Service.
+3. Conectati repository-ul GitHub.
+4. Alegeti branch-ul `main`.
+5. Porniti deploy-ul.
+
+La final, Render va afisa un URL public de forma:
+
+```text
+https://cbam-calculator.onrender.com
+```
 
 2. VPN sau Tailscale
 
