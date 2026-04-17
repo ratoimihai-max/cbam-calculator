@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator CBAM</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="calculator-panel" aria-labelledby="page-title">
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">Importuri otel</p>
+            <h1 id="page-title">Calculator CBAM</h1>
+          </div>
+          <img
+            class="product-photo"
+            src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=360&q=70"
+            alt="Structura metalica industriala">
+        </div>
+
+        <form id="cbam-form" class="form-grid">
+          <label>
+            Tip produs
+            <select id="tip_produs" name="tip_produs" required>
+              <option value="panou_sandwich">Panou sandwich</option>
+              <option value="tabla_cutata">Tabla cutata</option>
+              <option value="profil_inalt">Profil inalt</option>
+            </select>
+          </label>
+
+          <label id="grosime-panou-field">
+            Grosime panou (mm)
+            <select id="grosime_panou_mm" name="grosime_panou_mm"></select>
+          </label>
+
+          <label class="panel-sheet-field">
+            Tip panou sandwich
+            <select id="tip_panou" name="tip_panou">
+              <option value="perete">Perete</option>
+              <option value="acoperis">Acoperis</option>
+            </select>
+          </label>
+
+          <label class="panel-sheet-field">
+            Tabla exterior panou (mm)
+            <input id="grosime_tabla_exterior_mm" name="grosime_tabla_exterior_mm" type="number" min="0.01" step="0.01" value="0.5">
+          </label>
+
+          <label class="panel-sheet-field">
+            Tabla interior panou (mm)
+            <input id="grosime_tabla_interior_mm" name="grosime_tabla_interior_mm" type="number" min="0.01" step="0.01" value="0.5">
+          </label>
+
+          <label id="grosime-tabla-field" class="hidden">
+            Grosime tabla (mm)
+            <input id="grosime_tabla_mm" name="grosime_tabla_mm" type="number" min="0.01" step="0.01" value="0.5">
+          </label>
+
+          <label>
+            Suprafata importata (m2)
+            <input id="suprafata_m2" name="suprafata_m2" type="number" min="0.01" step="0.01" value="500" required>
+          </label>
+
+          <label>
+            Tara de origine
+            <select id="tara" name="tara" required></select>
+          </label>
+
+          <label>
+            Cod NC
+            <select id="cod_NC" name="cod_NC" required></select>
+          </label>
+
+          <label>
+            An valori implicite
+            <input id="anul" name="anul" type="text" value="2026" inputmode="numeric">
+          </label>
+
+          <label>
+            Pret EU ETS (EUR/tCO2)
+            <input id="pret_ETS" name="pret_ETS" type="number" min="0" step="0.01" value="80" required>
+          </label>
+
+          <label>
+            Taxa carbon platita la origine (EUR)
+            <input id="taxa_carbon_origine" name="taxa_carbon_origine" type="number" min="0" step="0.01" value="0">
+          </label>
+
+          <button type="submit">Calculeaza</button>
+        </form>
+      </section>
+
+      <aside class="results-panel" aria-live="polite">
+        <p class="eyebrow">Rezultat</p>
+        <div id="error" class="error hidden"></div>
+
+        <div class="result-card">
+          <span>Greutate pe m2</span>
+          <strong id="greutate_kg_m2">-</strong>
+          <small>kg/m2</small>
+        </div>
+
+        <div class="result-card">
+          <span>Greutate totala</span>
+          <strong id="greutate_tone">-</strong>
+          <small>tone</small>
+        </div>
+
+        <div class="result-card">
+          <span>Valoare default aplicata</span>
+          <strong id="valoare_implicita">-</strong>
+          <small id="sursa_valoare_implicita">tCO2/t produs</small>
+        </div>
+
+        <div class="result-card">
+          <span>Emisii implicite</span>
+          <strong id="emisii_tco2">-</strong>
+          <small>tCO2</small>
+        </div>
+
+        <div class="result-card highlight">
+          <span>Cost CBAM</span>
+          <strong id="cost_cbam_eur">-</strong>
+          <small>EUR</small>
+        </div>
+
+        <div class="result-card highlight">
+          <span>Cost CBAM pe m2</span>
+          <strong id="cost_cbam_eur_m2">-</strong>
+          <small>EUR/m2</small>
+        </div>
+
+        <p class="note">
+          Lista include tari terte uzuale pentru importuri CBAM. Pentru tarile fara valoare separata, se foloseste "_Other Countries and Territories".
+        </p>
+      </aside>
+
+      <section class="default-values-panel">
+        <details open>
+          <summary>Valori default pe tari</summary>
+          <div class="table-tools">
+            <label>
+              Cauta tara
+              <input id="country-search" type="search" placeholder="Ex: China, Serbia, United States">
+            </label>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tara</th>
+                  <th>Direct 7210</th>
+                  <th>Direct 7308</th>
+                  <th>2026 7210</th>
+                  <th>2026 7308</th>
+                  <th>Sursa</th>
+                </tr>
+              </thead>
+              <tbody id="default-values-body"></tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
