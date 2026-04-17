@@ -13,6 +13,7 @@ const codNC = document.querySelector("#cod_NC");
 const errorBox = document.querySelector("#error");
 const defaultValuesBody = document.querySelector("#default-values-body");
 const countrySearch = document.querySelector("#country-search");
+const defaultValuesDetails = document.querySelector("#default-values-details");
 
 let coduriImplicite = {};
 let valoriDefaultTari = [];
@@ -157,6 +158,9 @@ async function init() {
 
   grosimePanou.value = "60";
   updateProductFields();
+  if (window.matchMedia("(max-width: 640px)").matches) {
+    defaultValuesDetails.open = false;
+  }
   await calculate();
 }
 
